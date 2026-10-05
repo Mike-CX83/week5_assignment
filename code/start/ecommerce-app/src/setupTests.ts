@@ -1,15 +1,7 @@
-// src/setupTests.ts
-import '@testing-library/jest-dom'; // Remove /vitest from import
-import { beforeAll, afterEach, afterAll } from 'vitest';
-import { server } from './mocks/server';
-import { expect } from 'vitest';
+import '@testing-library/jest-dom/vitest'
+import { afterAll, afterEach, beforeAll } from 'vitest'
+import { server } from './mocks/server'
 
-// Extend Vitest's expect with jest-dom matchers
-expect.extend({
-  toBeInTheDocument: require('@testing-library/jest-dom/matchers').toBeInTheDocument,
-  // Add other matchers if needed
-});
-
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
+beforeAll(() => server.listen())
+afterEach(() => server.resetHandlers())
+afterAll(() => server.close())
