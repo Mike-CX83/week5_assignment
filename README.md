@@ -1,172 +1,99 @@
-# Final Project: E-Commerce Application
+# React Shopping App
 
-## Introduction
+## Project Description
 
-In the final phase of this project, our objective is to develop a comprehensive frontend solution for an **E-Commerce platform**. The application must be fully functional, responsive, and rigorously tested. It leverages modern tools and libraries such as **Zustand** for state management, **React Query** for data fetching, **TailwindCSS** for styling, and **Vitest** for testing. The completed solution supports seamless shopping experiences for users, including browsing products, managing shopping carts, viewing order histories, and updating profile information.
+A small shopping application built with React and TypeScript. Visitors can browse a product catalog, view product details, add items to a cart, edit a demonstration profile, and review sample orders.
 
-## Starter Files
+The project connects page navigation, shared application state, API requests, and automated tests in one frontend. It was developed from the supplied Atlas School Week 5 starter project.
 
-The initial code is available inside the `code/start` folder associated with this project.
+![Shopping app home page](code/start/ecommerce-app/screenshots/01-home.png)
 
-## Scenario
+## Usage / How It Works
 
-With the initial frontend structure established, your task is to implement a robust and scalable frontend for the E-Commerce platform. The completed solution should provide seamless shopping experiences for users, including the following functionalities:
+1. Open the home page and browse the featured products.
+2. Select **Products** to view the full catalog.
+3. Open a product or use its add button to place it in the cart. Adding the same product again increases its quantity.
+4. Open **Cart** to see quantities, line totals, and the overall total. Removing a product removes that entire cart line.
+5. Open **Profile** to edit the sample name and email or add an address.
+6. Open **My Orders** to review sample orders.
 
-- Browsing products.
-- Managing shopping carts.
-- Viewing order histories.
-- Updating profile information.
+React Router switches between pages. React Query fetches and caches products from `/api/products`. Zustand holds the cart and profile state.
 
-This project emphasizes modularity, separation of concerns, and test-driven development principles.
+The product endpoint is supplied by a custom Vite plugin in development and local preview. It returns three sample products from `src/data/products.ts`.
 
----
+## Installation
 
-## E-Commerce Features Views
+You need Git, Node.js, and npm. Use Node.js 22 or a newer compatible version.
 
-#### Home Page
+```bash
+git clone https://github.com/Mike-CX83/week5_assignment.git
+cd week5_assignment/code/start/ecommerce-app
+npm ci
+npm run dev
+```
 
-A styled and responsive landing page has been implemented, featuring the following:
+Open the address printed by Vite, normally `http://localhost:5173`.
 
-- A hero section welcoming users to the platform.
-- Featured products displayed in a grid layout.
-- Links to browse all products.
+The application is inside `code/start/ecommerce-app`, so run npm commands from that folder.
 
-#### Product Listing Page
+## Tech Stack
 
-This page must display all available products with:
+* React 18 and TypeScript.
+* Vite for development and builds.
+* React Router for page navigation.
+* Zustand for cart and profile state.
+* TanStack React Query for product requests and caching.
+* Tailwind CSS for styling.
+* Vitest, Testing Library, and Mock Service Worker for testing.
 
-- Product title.
-- Price.
-- Image.
-- A link to view product details.
-- Clear navigation back to the home page.
+## Build and Test
 
-#### Cart Page
+Run these commands from the application folder:
 
-The cart page displays complete cart information:
+```bash
+npm test
+npm run build
+npm run preview
+```
 
-- Title of each product.
-- Price.
-- Quantity.
-- Total price calculation.
-- A "Remove" button for each item.
+`npm test` runs the test suite once. `npm run build` checks TypeScript and creates the production bundle. `npm run preview` serves the build locally, including the demonstration product endpoint.
 
-#### Profile Page
+Additional commands:
 
-The profile page allows users to manage their account details:
+* `npm run test:watch`: rerun tests while editing.
+* `npm run test:coverage`: generate coverage reports.
+* `npm run lint`: run ESLint.
 
-- Name and email fields editable via a form.
-- Address management with the ability to add new addresses.
-- Order history displayed in chronological order.
+The repository includes tests for stores, navigation, product loading, cart interactions, profile changes, and order display. Mock Service Worker supplies API responses during tests.
 
-## Application Setup and Layout
+## Current Limitations
 
-An MVC-like structure is provided featuring implemented views and empty components. For this task, ensure the following:
+This is a frontend demonstration. There is no login, checkout, payment processing, or persistent database. Orders are sample records. Cart and profile changes reset when the page reloads.
 
-#### Views Layout
+Uploading only the built files to a static host does not provide `/api/products`. A deployment needs an equivalent API endpoint or a change to how product data is loaded.
 
-- `_ViewStart.tsx` and `_ViewImports.tsx` are provided with appropriate common settings.
-- A responsive shared layout (`Layout.tsx`) is provided, including:
-  - Consistent styling using **TailwindCSS** or custom CSS.
+## Project Organization
 
-## Author Features
+* `code/start/ecommerce-app/src/pages/`: application pages.
+* `code/start/ecommerce-app/src/components/`: shared interface elements.
+* `code/start/ecommerce-app/src/stores/`: cart and user state.
+* `code/start/ecommerce-app/src/api/`: product requests.
+* `code/start/ecommerce-app/src/mocks/`: test API handlers.
+* `code/start/ecommerce-app/screenshots/`: interface and test screenshots.
 
-Ensure a link to "My Orders" is added to the navigation bar for users. This should lead to the **Order History** page.
+[View additional screenshots](code/start/ecommerce-app/screenshots/)  
+[Original assignment brief](ASSIGNMENT.md)  
+[Application documentation](code/start/ecommerce-app/README.md)
 
-#### Order History
+## Design Decisions
 
-The order history page must display:
+Cart and profile state are separate from product fetching. This keeps user interactions in Zustand while React Query manages remote data. Testing the stores independently makes it easier to check state changes without rendering the entire application.
 
-- Order ID.
-- Date of purchase.
-- Total amount.
-- Status of the order.
+## Author
 
----
+**Mike Hankins**  
+Atlas School software engineering student.
 
-## Technical Requirements
+[GitHub profile](https://github.com/Mike-CX83)
 
-We'll be working with **React**, **Zustand**, and **TypeScript** to develop our E-Commerce app. Below are the technical requirements and tasks to accomplish:
-
-### 1. Set Up the Development Environment
-
-- Initialize a React project using **Vite** with TypeScript support.
-- Install necessary dependencies:
-  - **Zustand** for state management.
-  - **React Query** for data fetching.
-  - **TailwindCSS** for styling.
-  - **Vitest** and **Testing Library** for unit testing.
-- Configure **MSW (Mock Service Worker)** for mocking API responses during testing.
-
-### 2. Build the Core Features
-
-Implement the following functionalities:
-
-#### Global State Management
-
-- Create Zustand stores (`useCartStore`, `useUserStore`) to manage:
-  - Cart data (add/remove items, calculate total).
-  - User data (profile updates, address management, order history).
-
-#### Reusable Components
-
-- Implement reusable components:
-  - `Header`: Navigation bar with cart status .
-  - `ProductList`: Displays products fetched via React Query.
-  - Page components (`Cart`, `Home`, `Products`, `Profile`): Handle specific sections of the app.
-
-#### Component Architecture
-
-- Use **TypeScript** to enforce type checks for props and state across components.
-- Ensure components are modular, reusable, and follow separation of concerns.
-
-#### Styling with TailwindCSS
-
-- Style the application using **TailwindCSS** for a clean, responsive, and mobile-friendly design.
-
-#### Data Fetching
-
-- Use **React Query** to fetch product data and cache it efficiently.
-
-#### Routing
-
-- Define routes for different pages (Home, Products, Cart, Profile) using **React Router**.
-
-#### Testing
-
-- Write unit tests for Zustand stores to validate state updates.
-- Write integration tests for components to ensure proper rendering and user interactions.
-- Mock API responses using **MSW** for testing data-fetching functionality.
-- Mock Zustand hooks in component tests to isolate and test individual components.
-
----
-
-### Test the Application
-
-Verify the following:
-
-- The Zustand store correctly manages the state of cart items and user data (add, remove, update).
-- The `Header` component displays navigation links and cart status accurately.
-- The `ProductList` component displays products fetched via React Query.
-- The `Cart` component allows users to view and remove products from their cart.
-- The `Profile` component enables users to update their profile information, add addresses, and view order history.
-- All tests pass successfully using **Vitest**.
-
----
-
-## Deliverables
-
-The deliverable of this exercise is a working React application that meets all the requirements above. Submit the following:
-
-1. **Public GitHub Repository** containing the source code.
-2. **Screenshots** showing:
-   - The app running locally.
-   - Test results from **Vitest**.
-3. A **README file** explaining how to set up and run the app locally.
-4. Simple documentation for the app's functionality and testing process.
-
----
-
-## Conclusion
-
-Building an **E-Commerce app** with Zustand, TypeScript, React Query, and Testing Library is an excellent way to practice creating reusable React components, implementing global state management, and leveraging modern testing practices. By completing this activity, you've learned how to create a functional React app with robust state management, type safety, and comprehensive testing. These skills form the foundation for developing more complex and scalable React applications in the future.
+The project builds on the course starter application and requirements.
